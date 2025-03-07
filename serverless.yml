@@ -1,27 +1,39 @@
 service: aws-crud-app
+
 provider:
   name: aws
   runtime: nodejs20.x
   timeout: 30
-
-
-  iam: 
+  iam:
     role:
       statements:
         - Effect: Allow
           Action:
             - dynamodb:*
           Resource: "*"
-  
 
 functions:
-  api:
-    handler: handler.handler
+  app:
+    handler: handler.handler 
     events:
-      - httpApi: "*"
+      - httpApi:
+          path: /api/{proxy+}
+          method: ANY
+          
+      - httpApi:
+          path: /
+          method: GET
 
-
+  swagger:
+    handler: swagger.swagger 
+    events:
+      - httpApi:
+          path: /api-docs
+          method: ANY
+      - httpApi:
+          path: /api-docs/{proxy+} 
+          method: GET
+          
 
 plugins:
   - serverless-offline
-

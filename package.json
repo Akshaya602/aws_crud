@@ -19,12 +19,14 @@
     "dotenv": "^16.4.7",
     "dynamoose": "^4.0.3",
     "express": "^4.21.2",
+    "js-yaml": "^4.1.0",
     "jsonwebtoken": "^9.0.2",
     "serverless-esbuild": "^1.54.6",
     "serverless-http": "^3.2.0",
     "serverless-offline": "^14.4.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "yamljs": "^0.3.0"
   }
 }

@@ -2,14 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import serverless from 'serverless-http';
 import { router } from './src/routes/routes.js';
-import setupSwagger from "./swaggerConfig.js";
-
+// import swaggerUi from 'swagger-ui-express';
+// import YAML from 'yamljs'; // For loading the Swagger YAML file
+// import path from 'path';
 
 // Initialize the Express app
 const app = express();
-
-
-
 
 // Middleware setup
 app.use(express.urlencoded({ limit: '1mb', extended: true }));
@@ -29,8 +27,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// Initialize Swagger
-setupSwagger(app);
+// // Load Swagger YAML file
+// const swaggerDocument = YAML.load(path.resolve('./swagger.yml'));
+
+// // Serve Swagger UI at /api-docs
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Routes setup
 app.use('/api', router);
@@ -38,12 +39,12 @@ app.get('/', (req, res) => {
   res.send('Welcome');
 });
 
-
-
-  const PORT = 3000;
-  app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
-
-
+// Start the server locally (for development)
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Swagger UI available at http://localhost:${PORT}/api-docs`);
+});
 
 // Export the serverless handler
 const handler = serverless(app);
